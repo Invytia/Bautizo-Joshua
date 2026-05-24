@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Bautizo - Joshua</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
-
     <style>
         :root {
             --bg-dark: #fcfaf8;
@@ -17,162 +14,175 @@
             --text-light: #4a4138;
             --text-muted: #96887a;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html { width: 100%; height: 100%; font-family: 'Montserrat', sans-serif; background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; transition: background-color 0.5s ease; }
+        
+        /* Audio y Botón Sticky */
+        #audio-sticky { position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: var(--text-light); color: white; border: 1px solid var(--gold-primary); width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-        body, html {
-            width: 100%; height: 100%;
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            overflow-x: hidden;
-        }
-
-        /* --- Sobre Premium --- */
-        #envelope-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-bayou); z-index: 1000;
-            display: flex; justify-content: center; align-items: center;
-            transition: opacity 1.2s ease, visibility 1.2s;
-        }
-
-        #envelope-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
-
-        .envelope-wrapper {
-            position: relative; cursor: pointer;
-            transition: transform 0.5s ease;
-        }
-
-        .envelope {
-            position: relative; width: 340px; height: 240px;
-            background: #dccab5; border-radius: 0 0 8px 8px;
-            box-shadow: 0 20px 40px rgba(74, 65, 56, 0.2);
-        }
-
-        .front-flap {
-            position: absolute; top: 0; left: 0;
-            border-left: 170px solid transparent; border-right: 170px solid transparent;
-            border-top: 130px solid var(--gold-primary);
-            transform-origin: top; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 4;
-        }
-
-        .envelope-wrapper.open .front-flap { transform: rotateX(180deg); }
-
-        .wax-seal {
-            position: absolute; top: 110px; left: 50%; transform: translateX(-50%);
-            width: 60px; height: 60px; background: var(--bg-dark); border-radius: 50%;
-            z-index: 5; display: flex; justify-content: center; align-items: center;
-            border: 2px solid var(--gold-primary); transition: all 0.5s ease;
-        }
-
-        .envelope-wrapper.open .wax-seal { transform: translateX(-50%) scale(0); opacity: 0; }
-
-        /* --- Audio Control --- */
-        #audio-btn {
-            position: fixed; bottom: 20px; right: 20px; z-index: 998;
-            width: 50px; height: 50px; border-radius: 50%;
-            background: var(--text-light); color: #fff;
-            border: 2px solid var(--gold-primary); cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        /* --- Carrusel --- */
-        .carousel-container {
-            width: 100%; display: flex; overflow-x: auto;
-            scroll-snap-type: x mandatory; gap: 15px; padding: 10px 0;
-            margin: 20px 0; scrollbar-width: none;
-        }
+        /* Carrusel Premium */
+        .carousel-container { width: 100%; margin: 20px 0; overflow-x: auto; display: flex; scroll-snap-type: x mandatory; gap: 10px; padding: 5px; scrollbar-width: none; }
         .carousel-container::-webkit-scrollbar { display: none; }
-        .carousel-container img {
-            width: 85%; flex: 0 0 auto; scroll-snap-align: center;
-            border-radius: 4px; border: 1px solid var(--gold-secondary);
-        }
+        .carousel-container img { width: 100%; flex: 0 0 100%; scroll-snap-align: center; border-radius: 4px; border: 1px solid var(--gold-secondary); }
 
-        /* --- Estilos base originales --- */
-        #main-invitation { min-height: 100vh; padding: 60px 20px; opacity: 0; transition: opacity 1.5s; }
-        body.content-active #main-invitation { opacity: 1; }
-        .invitation-frame { max-width: 500px; margin: 0 auto; border: 1px solid var(--gold-secondary); padding: 40px 30px; text-align: center; background: rgba(252, 250, 248, 0.9); }
-        .main-title { font-family: 'Pinyon Script', cursive; font-size: 65px; margin-bottom: 15px; }
-        .section-tag { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 5px; color: var(--text-muted); text-transform: uppercase; margin: 20px 0; }
-        .btn-whatsapp { display: inline-block; padding: 14px 30px; background: var(--text-light); color: #ffffff; text-decoration: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; margin-top: 15px; }
-        .divider { width: 60px; height: 1px; background: var(--gold-primary); margin: 25px auto; }
+        /* --- TUS ESTILOS ORIGINALES MANTENIDOS --- */
+        #envelope-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-bayou); z-index: 1000; display: flex; justify-content: center; align-items: center; transition: opacity 1.2s ease-in-out, visibility 1.2s; }
+        #envelope-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+        .envelope-wrapper { position: relative; cursor: pointer; transform: scale(0.9); transition: transform 0.5s ease; }
+        .envelope { position: relative; width: 340px; height: 240px; background: var(--gold-secondary); border-radius: 0 0 8px 8px; box-shadow: 0 20px 40px rgba(74, 65, 56, 0.1); }
+        .envelope::before { content: ''; position: absolute; top: 0; right: 0; border-right: 170px solid var(--gold-primary); border-top: 120px solid transparent; border-bottom: 120px solid var(--gold-primary); border-radius: 0 0 8px 0; z-index: 2; }
+        .envelope::after { content: ''; position: absolute; top: 0; left: 0; border-left: 170px solid var(--gold-primary); border-top: 120px solid transparent; border-bottom: 120px solid var(--gold-primary); border-radius: 0 0 0 8px; z-index: 2; }
+        .front-flap { position: absolute; top: 0; left: 0; border-left: 170px solid transparent; border-right: 170px solid transparent; border-top: 130px solid #b3956e; transform-origin: top; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s; z-index: 4; }
+        .envelope-wrapper.open .front-flap { transform: rotateX(180deg); z-index: 1; }
+        .wax-seal { position: absolute; top: 110px; left: 50%; transform: translateX(-50%); width: 60px; height: 60px; background: var(--bg-dark); border-radius: 50%; z-index: 5; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.8); transition: transform 0.4s ease, opacity 0.4s ease 0.4s; border: 2px solid var(--gold-primary); }
+        .envelope-wrapper.open .wax-seal { transform: translateX(-50%) scale(0); opacity: 0; }
+        .envelope-text { position: absolute; bottom: -50px; width: 100%; text-align: center; font-family: 'Cinzel', serif; font-size: 14px; color: var(--text-light); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+        .hint-text { position: absolute; bottom: -80px; width: 100%; text-align: center; font-family: 'Montserrat', sans-serif; font-size: 11px; color: var(--text-muted); letter-spacing: 1px; opacity: 0.8; animation: pulse 2s infinite; }
+        #main-invitation { min-height: 100vh; background: url('assets/imagen.jpg') no-repeat center center; background-size: cover; background-attachment: fixed; position: relative; display: flex; flex-direction: column; align-items: center; padding: 60px 20px; opacity: 0; transform: translateY(20px); transition: opacity 1.5s ease-out 0.6s, transform 1.5s ease-out 0.6s; }
+        body.content-active #main-invitation { opacity: 1; transform: translateY(0); }
+        .invitation-frame { max-width: 500px; width: 100%; border: 1px solid var(--gold-secondary); padding: 40px 30px; text-align: center; position: relative; background: rgba(252, 250, 248, 0.85); box-shadow: 0 15px 35px rgba(74, 65, 56, 0.08); backdrop-filter: blur(8px); border-radius: 4px; }
+        .lotus-header img { width: 45px; height: 45px; object-fit: contain; margin-bottom: 20px; }
+        .section-tag { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+        .main-title { font-family: 'Pinyon Script', cursive; font-size: 65px; color: var(--text-light); margin-bottom: 15px; line-height: 1.1; }
+        .phrase { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: var(--text-light); line-height: 1.6; margin-bottom: 35px; padding: 0 15px; }
+        .divider { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold-primary), transparent); margin: 25px auto; }
         .info-block { margin-bottom: 30px; }
-        .info-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 3px; color: var(--text-muted); }
-        .name-main { font-family: 'Cinzel', serif; font-size: 17px; margin-top: 5px; }
+        .info-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+        .name-main { font-family: 'Cinzel', serif; font-size: 17px; font-weight: 600; color: var(--text-light); letter-spacing: 1px; margin-bottom: 4px; }
+        .info-value-main { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 600; color: var(--text-light); letter-spacing: 2px; }
+        .info-value-sub { font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--text-light); margin-top: 5px; letter-spacing: 1px; line-height: 1.4; }
+        .countdown-grid { display: flex; justify-content: center; gap: 15px; margin: 25px auto 10px auto; max-width: 350px; }
+        .countdown-item { flex: 1; background: rgba(255, 255, 255, 0.7); border: 1px solid var(--gold-secondary); padding: 10px 5px; border-radius: 4px; }
+        .countdown-number { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; color: var(--text-light); display: block; }
+        .countdown-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; }
+        .event-image { width: 100%; border-radius: 4px; margin-top: 15px; border: 1px solid var(--gold-secondary); }
+        .map-card { margin-top: 15px; border: 1px solid var(--gold-secondary); background: rgba(255, 255, 255, 0.8); padding: 20px 15px; border-radius: 4px; text-align: center; }
+        .map-embed { width: 100%; height: 220px; border: 0; border-radius: 4px; margin-top: 15px; }
+        .btn-link { display: inline-flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; padding: 12px 25px; background: transparent; color: var(--text-light); border: 1px solid var(--gold-primary); font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px; text-decoration: none; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; font-weight: 600; border-radius: 4px; }
+        .btn-link:hover { background: var(--gold-primary); color: #ffffff; }
+        .btn-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 10px; margin-top: 25px; padding: 14px 30px; background: var(--text-light); color: #ffffff; border: 1px solid var(--text-light); font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 2px; text-decoration: none; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; font-weight: 600; border-radius: 4px; }
+        .btn-whatsapp:hover { background: #ffffff; color: var(--text-light); transform: translateY(-2px); }
+        .confirm-input, .confirm-select { width: 100%; padding: 14px 16px; margin-top: 12px; border: 1px solid var(--gold-secondary); border-radius: 4px; background: rgba(255,255,255,0.85); font-family: 'Montserrat', sans-serif; color: var(--text-light); font-size: 14px; outline: none; }
+        .flower-petal { position: absolute; background-color: var(--gold-primary); border-radius: 150% 0 150% 0; pointer-events: none; animation: float-up infinite ease-in; opacity: 0; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        @keyframes float-up { 0% { transform: translateY(0) translateX(0) rotate(0deg) scale(0.5); opacity: 0; } 15% { opacity: 0.6; } 85% { opacity: 0.6; } 100% { transform: translateY(-100vh) translateX(50px) rotate(360deg) scale(1); opacity: 0; } }
     </style>
 </head>
-
 <body>
 
-    <audio id="music" loop>
-        <source src="assets/song.mp3" type="audio/mpeg">
-    </audio>
-
-    <button id="audio-btn" onclick="toggleMusic()">♪</button>
+    <!-- Audio -->
+    <audio id="audio-player" loop><source src="assets/song.mp3" type="audio/mpeg"></audio>
+    <button id="audio-sticky" onclick="toggleAudio()">♪</button>
 
     <div id="envelope-screen">
         <div class="envelope-wrapper" onclick="openEnvelope()">
             <div class="front-flap"></div>
-            <div class="wax-seal"><img src="assets/icono.png" width="30" alt="Icono"></div>
+            <div class="wax-seal"><img src="assets/icono.png" alt="Icono" style="width:30px; height:30px;"></div>
             <div class="envelope"></div>
-            <div style="margin-top: 30px; font-family: 'Cinzel'; text-transform: uppercase; letter-spacing: 2px;">Toca el sello</div>
+            <div class="envelope-text">Mi Bautizo<br><span id="sobre-nombre" style="color: var(--text-light); font-size: 16px; letter-spacing: 5px; font-weight: 600;">Joshua</span></div>
+            <div class="hint-text">Toca el sello para abrir</div>
         </div>
     </div>
 
     <main id="main-invitation">
-        <div class="invitation-frame">
+        <div id="lanterns-container" style="position: absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; pointer-events:none; z-index:1;"></div>
+        <div class="invitation-frame" style="z-index: 2;">
+            <div class="lotus-header"><img src="assets/icono.png" alt="Icono"></div>
             <div class="section-tag">Mi Bautizo</div>
             <h1 class="main-title" id="main-nombre">Joshua</h1>
             
-            <!-- Carrusel de fotos -->
+            <!-- Carrusel -->
             <div class="carousel-container">
                 <img src="assets/foto1.jpg" alt="Foto 1">
                 <img src="assets/foto2.jpg" alt="Foto 2">
                 <img src="assets/foto3.jpg" alt="Foto 3">
             </div>
 
-            <p style="font-style: italic; margin-bottom: 25px;">"Con inmensa alegría comparto este día especial."</p>
+            <p class="phrase">"Con inmensa alegría y amor, compartimos el día en que recibo la luz de Dios."</p>
+            <div class="divider"></div>
             
+            <!-- CONTENIDO ORIGINAL: Padres, Padrinos, Cuenta atrás, Mapas, Confirmación... -->
+            <div class="info-block"><div class="info-label">Mis Padres</div><div class="name-main">Josué González Pérez</div><div class="name-main">Zaira Romero López</div></div>
+            <div class="info-block"><div class="info-label">Mis Padrinos</div><div class="name-main">Julián Romero López</div><div class="name-main">Irlanda Siliceo Cantero</div></div>
             <div class="divider"></div>
 
-            <div class="info-block">
-                <div class="info-label">Mis Padres</div>
-                <div class="name-main">Josué González Pérez</div>
-                <div class="name-main">Zaira Romero López</div>
+            <div class="section-tag">Cuenta Atrás</div>
+            <div class="countdown-grid" id="countdown-timer">
+                <div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Días</span></div>
+                <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Hrs</span></div>
+                <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Min</span></div>
+                <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Seg</span></div>
+            </div>
+            <div class="divider"></div>
+
+            <div class="info-label">Ceremonia Religiosa</div>
+            <div class="info-value-main">06.JUN.2026</div>
+            <div class="info-value-sub">Sábado a las 10:00 a.m.<br>Parroquia del Purísimo Corazón de María</div>
+            <img src="assets/ceremonia.jpg" class="event-image">
+            <div class="map-card">
+                <iframe class="map-embed" src="https://maps.google.com/maps?q=Parroquia%20del%20Pur%C3%ADsimo%20Coraz%C3%B3n%20de%20Mar%C3%ADa&output=embed" loading="lazy"></iframe>
+                <a href="https://share.google/ADzdVUeRq7zm7zJPe" target="_blank" class="btn-link">Ver en Maps</a>
             </div>
 
             <div class="divider"></div>
 
             <div class="section-tag">Mesa de Regalos</div>
             <a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/52010432" target="_blank" class="btn-whatsapp">Ver Mesa de Regalos</a>
+            
+            <div class="divider"></div>
+
+            <div class="section-tag">Confirmación</div>
+            <input type="text" id="guestName" class="confirm-input" placeholder="Nombre del asistente">
+            <select id="guestCount" class="confirm-select"><option value="1">1 persona</option><option value="2">2 personas</option></select>
+            <a href="#" onclick="confirmAttendance()" class="btn-whatsapp">Confirmar Asistencia</a>
         </div>
     </main>
 
     <script>
-        const music = document.getElementById('music');
-        const audioBtn = document.getElementById('audio-btn');
-        let isPlaying = false;
-
+        const audio = document.getElementById('audio-player');
+        const audioBtn = document.getElementById('audio-sticky');
+        
         function openEnvelope() {
             document.querySelector('.envelope-wrapper').classList.add('open');
             setTimeout(() => {
                 document.getElementById('envelope-screen').classList.add('fade-out');
                 document.body.classList.add('content-active');
-                toggleMusic();
-            }, 800);
+                audio.play();
+                createFlowerPetals();
+            }, 1200);
         }
 
-        function toggleMusic() {
-            if (music.paused) {
-                music.play();
-                audioBtn.innerText = '♪';
-                isPlaying = true;
-            } else {
-                music.pause();
-                audioBtn.innerText = '❚❚';
-                isPlaying = false;
+        function toggleAudio() {
+            if (audio.paused) { audio.play(); audioBtn.innerText = '♪'; }
+            else { audio.pause(); audioBtn.innerText = '❚❚'; }
+        }
+
+        // (Aquí iría tu lógica original de cuenta regresiva y confirmación completa...)
+        let targetDate = new Date("June 6, 2026 10:00:00");
+        setInterval(function() {
+            const timeLeft = targetDate - new Date();
+            document.getElementById("days").innerText = Math.floor(timeLeft / (1000*60*60*24));
+            document.getElementById("hours").innerText = Math.floor((timeLeft % (1000*60*60*24))/(1000*60*60));
+            document.getElementById("minutes").innerText = Math.floor((timeLeft % (1000*60*60))/(1000*60));
+            document.getElementById("seconds").innerText = Math.floor((timeLeft % (1000*60))/1000);
+        }, 1000);
+
+        function confirmAttendance() {
+            const nombre = document.getElementById('guestName').value || 'Invitado';
+            const personas = document.getElementById('guestCount').value;
+            window.open(`https://wa.me/5532327877?text=Confirmo asistencia, ${nombre}, ${personas} personas`, '_blank');
+        }
+
+        function createFlowerPetals() {
+            const container = document.getElementById('lanterns-container');
+            for (let i = 0; i < 20; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('flower-petal');
+                petal.style.width = (Math.random()*10+5) + 'px';
+                petal.style.height = (Math.random()*15+5) + 'px';
+                petal.style.left = Math.random()*100 + '%';
+                petal.style.animationDelay = Math.random()*5 + 's';
+                container.appendChild(petal);
             }
         }
     </script>
