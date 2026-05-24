@@ -159,7 +159,7 @@
         #audio-btn svg { width: 20px; height: 20px; fill: #ffffff; }
         #audio-btn:hover { transform: scale(1.05); background-color: var(--text-light); }
 
-        .flower-petal { position: absolute; background-color: var(--gold-primary); border-radius: 150% 0 150% 0; pointer-events: none; animation: float-up infinite ease-in; opacity: 0; }
+        .flower-petal { position: absolute; background-color: var(--gold-primary); border-radius: 150% 0 150% 0; pointer-events: none; animation: float-up infinite ease-in; opacity: 0; z-index: 1; }
 
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
         @keyframes float-up {
@@ -301,14 +301,27 @@
 
             <div class="divider"></div>
             
-            <!-- CONFIRMACIÓN MEJORADA -->
-            <div class="section-tag">Confirmación</div>
+            <!-- DETALLES FINALES Y CONFIRMACIÓN GLASSMORPHISM -->
+            <div class="section-tag">Detalles Finales</div>
             <p class="phrase" style="font-size: 16px; margin-bottom: 20px;">Para nosotros es muy importante contar con tu presencia.</p>
-            
-            <div style="background: rgba(255, 255, 255, 0.7); border: 1px solid var(--gold-secondary); padding: 25px 20px; border-radius: 4px; margin-bottom: 10px; text-align: center;">
-                <div style="font-family: 'Cinzel', serif; font-size: 11px; color: var(--text-light); font-weight: 600; letter-spacing: 2px; margin-bottom: 8px;">FECHA LÍMITE</div>
-                <div style="font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--text-light); margin-bottom: 20px; opacity: 0.9;">Por favor, confírmanos a más tardar el<br><span style="font-weight: 600; display: block; margin-top: 5px; font-size: 14px;">30 de Mayo de 2026</span></div>
-                <a href="https://wa.me/525532327877?text=¡Hola!%20Confirmo%20mi%20asistencia%20al%20Bautizo%20de%20Joshua." target="_blank" class="btn-whatsapp">Confirmar por WhatsApp</a>
+
+            <div style="background: rgba(252, 250, 248, 0.4); border: 1px solid var(--gold-secondary); padding: 30px 20px; border-radius: 8px; margin-bottom: 10px; text-align: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 8px 25px rgba(74, 65, 56, 0.05);">
+                
+                <!-- Pases -->
+                <div style="font-family: 'Cinzel', serif; font-size: 11px; color: var(--text-light); font-weight: 600; letter-spacing: 2px; margin-bottom: 8px;">PASES RESERVADOS</div>
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 15px; color: var(--text-light); margin-bottom: 20px; border-bottom: 1px solid var(--gold-primary); display: inline-block; padding-bottom: 5px; width: 60px;">2</div>
+
+                <!-- Dress Code -->
+                <div style="font-family: 'Cinzel', serif; font-size: 11px; color: var(--text-light); font-weight: 600; letter-spacing: 2px; margin-bottom: 8px; margin-top: 10px;">DRESS CODE</div>
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--text-muted); margin-bottom: 25px; font-style: italic;">Formal de día / Tonos claros</div>
+
+                <!-- Fecha y Botón -->
+                <div style="font-family: 'Cinzel', serif; font-size: 11px; color: var(--text-light); font-weight: 600; letter-spacing: 2px; margin-bottom: 8px;">CONFIRMACIÓN</div>
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 12px; color: var(--text-light); margin-bottom: 20px; opacity: 0.9;">Por favor, confírmanos a más tardar el<br><span style="font-weight: 600; display: block; margin-top: 5px; font-size: 14px;">20 de Mayo de 2026</span></div>
+                
+                <a href="https://wa.me/525532327877?text=¡Hola!%20Confirmo%20mi%20asistencia%20al%20Bautizo%20de%20Joshua." target="_blank" class="btn-whatsapp" style="width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">Confirmar Asistencia</a>
+                
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 9px; color: var(--text-muted); margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;">*Agradecemos nos avises si tienes alguna restricción alimentaria al confirmar.</div>
             </div>
 
             <div class="divider"></div>
