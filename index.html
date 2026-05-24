@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Mi Bautizo - Joshua</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -17,9 +23,14 @@
             --text-muted: #96887a;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        body, html {
+        body,
+        html {
             width: 100%;
             height: 100%;
             font-family: 'Montserrat', sans-serif;
@@ -50,24 +61,36 @@
             pointer-events: none;
         }
 
+        .premium-glow {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(255, 255, 255, 0.45) 0%,
+                    rgba(255, 255, 255, 0) 70%);
+            filter: blur(30px);
+            animation: premiumPulse 4s ease-in-out infinite;
+        }
+
         .envelope-wrapper {
             position: relative;
             cursor: pointer;
-            transform: scale(0.9);
-            transition: transform 0.5s ease;
-        }
-
-        .envelope-wrapper:hover {
-            transform: scale(0.95);
+            transform-style: preserve-3d;
+            perspective: 1400px;
+            animation: floatEnvelope 5s ease-in-out infinite;
         }
 
         .envelope {
             position: relative;
             width: 340px;
             height: 240px;
-            background: var(--gold-secondary);
+            background:
+                linear-gradient(145deg, #f5eadd, #e0c9af);
             border-radius: 0 0 8px 8px;
-            box-shadow: 0 20px 40px rgba(74, 65, 56, 0.1);
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, .18),
+                inset 0 2px 4px rgba(255, 255, 255, .7);
         }
 
         .envelope::before {
@@ -100,15 +123,57 @@
             left: 0;
             border-left: 170px solid transparent;
             border-right: 170px solid transparent;
-            border-top: 130px solid #b3956e;
+            border-top: 130px solid #c9ac84;
             transform-origin: top;
-            transition: transform 0.6s ease 0.2s;
+            transition: transform 0.8s cubic-bezier(.22, 1, .36, 1);
             z-index: 4;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, .12));
         }
 
         .envelope-wrapper.open .front-flap {
             transform: rotateX(180deg);
             z-index: 1;
+        }
+
+        .envelope-letter {
+            position: absolute;
+            width: 270px;
+            height: 170px;
+            background: #fffdf9;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            border-radius: 6px;
+            z-index: 1;
+            transition: all .9s cubic-bezier(.22, 1, .36, 1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .12);
+            overflow: hidden;
+        }
+
+        .envelope-wrapper.open .envelope-letter {
+            transform: translateX(-50%) translateY(-120px);
+        }
+
+        .letter-inner {
+            width: 100%;
+            height: 100%;
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        .letter-title {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 4px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .letter-name {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 52px;
+            color: var(--text-light);
+            margin-top: 10px;
         }
 
         .wax-seal {
@@ -124,7 +189,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.8);
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, .18),
+                inset 0 2px 6px rgba(255, 255, 255, .9);
             transition: transform 0.4s ease, opacity 0.4s ease 0.4s;
             border: 2px solid var(--gold-primary);
         }
@@ -402,7 +469,7 @@
             margin-top: 12px;
             border: 1px solid var(--gold-secondary);
             border-radius: 4px;
-            background: rgba(255,255,255,0.85);
+            background: rgba(255, 255, 255, 0.85);
             font-family: 'Montserrat', sans-serif;
             color: var(--text-light);
             font-size: 14px;
@@ -418,10 +485,106 @@
             opacity: 0;
         }
 
+        .gallery-carousel {
+            width: 100%;
+            overflow: hidden;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 14px;
+            width: max-content;
+            animation: scrollGallery 22s linear infinite;
+        }
+
+        .gallery-slide {
+            width: 260px;
+            flex-shrink: 0;
+        }
+
+        .gallery-slide img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid var(--gold-secondary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        }
+
+        .music-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 9999;
+            transition: all .3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+        }
+
+        .music-btn.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes premiumPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: .7;
+            }
+
+            50% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatEnvelope {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes scrollGallery {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
         @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
+            0% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.5;
+            }
         }
 
         @keyframes float-up {
@@ -430,8 +593,13 @@
                 opacity: 0;
             }
 
-            15% { opacity: 0.6; }
-            85% { opacity: 0.6; }
+            15% {
+                opacity: 0.6;
+            }
+
+            85% {
+                opacity: 0.6;
+            }
 
             100% {
                 transform: translateY(-100vh) translateX(50px) rotate(360deg) scale(1);
@@ -440,33 +608,6 @@
         }
 
         @media (max-width: 400px) {
-            .envelope {
-                width: 290px;
-                height: 210px;
-            }
-
-            .envelope::before {
-                border-right-width: 145px;
-                border-top-width: 105px;
-                border-bottom-width: 105px;
-            }
-
-            .envelope::after {
-                border-left-width: 145px;
-                border-top-width: 105px;
-                border-bottom-width: 105px;
-            }
-
-            .front-flap {
-                border-left-width: 145px;
-                border-right-width: 145px;
-                border-top-width: 115px;
-            }
-
-            .wax-seal {
-                top: 95px;
-            }
-
             .main-title {
                 font-size: 55px;
             }
@@ -474,16 +615,45 @@
             .invitation-frame {
                 padding: 30px 20px;
             }
+
+            .gallery-slide {
+                width: 220px;
+            }
+
+            .gallery-slide img {
+                height: 300px;
+            }
         }
     </style>
+
 </head>
 
 <body>
 
+    <audio id="bg-music" loop>
+        <source src="assets/song.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-toggle" class="music-btn hidden" onclick="toggleMusic()">
+        ⏸
+    </button>
+
     <div id="envelope-screen">
+
+        <div class="premium-glow"></div>
+
         <div class="envelope-wrapper" onclick="openEnvelope()">
 
             <div class="front-flap"></div>
+
+            <div class="envelope-letter">
+                <div class="letter-inner">
+                    <div class="letter-title">Mi Bautizo</div>
+                    <div class="letter-name" id="sobre-nombre">
+                        Joshua
+                    </div>
+                </div>
+            </div>
 
             <div class="wax-seal">
                 <img src="assets/icono.png" alt="Icono">
@@ -492,20 +662,20 @@
             <div class="envelope"></div>
 
             <div class="envelope-text">
-                Mi Bautizo<br>
-                <span id="sobre-nombre" style="color: var(--text-light); font-size: 16px; letter-spacing: 5px; font-weight: 600;">
-                    Joshua
-                </span>
+                Invitación Especial
             </div>
 
             <div class="hint-text">Toca el sello para abrir</div>
 
         </div>
+
     </div>
 
     <main id="main-invitation">
 
-        <div id="lanterns-container" style="position: absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; pointer-events:none; z-index:1;"></div>
+        <div id="lanterns-container"
+            style="position: absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; pointer-events:none; z-index:1;">
+        </div>
 
         <div class="invitation-frame" style="z-index: 2;">
 
@@ -541,6 +711,7 @@
             <div class="section-tag">Cuenta Atrás</div>
 
             <div class="countdown-grid" id="countdown-timer">
+
                 <div class="countdown-item">
                     <span class="countdown-number" id="days">00</span>
                     <span class="countdown-label">Días</span>
@@ -560,6 +731,7 @@
                     <span class="countdown-number" id="seconds">00</span>
                     <span class="countdown-label">Seg</span>
                 </div>
+
             </div>
 
             <div class="divider"></div>
@@ -581,12 +753,12 @@
 
                     <div class="map-card">
 
-                        <div style="font-family: 'Cinzel', serif; font-size: 11px; color: var(--text-light); font-weight: 600; letter-spacing: 1px;">
+                        <div
+                            style="font-family: 'Cinzel', serif; font-size: 11px; color: var(--text-light); font-weight: 600; letter-spacing: 1px;">
                             UBICACIÓN
                         </div>
 
-                        <iframe
-                            class="map-embed"
+                        <iframe class="map-embed"
                             src="https://maps.google.com/maps?q=Parroquia%20del%20Pur%C3%ADsimo%20Coraz%C3%B3n%20de%20Mar%C3%ADa&t=&z=15&ie=UTF8&iwloc=&output=embed"
                             loading="lazy">
                         </iframe>
@@ -616,20 +788,57 @@
 
                     <div class="map-card">
 
-                        <div style="font-family: 'Cinzel', serif; font-size: 11px; color: var(--text-light); font-weight: 600; letter-spacing: 1px;">
+                        <div
+                            style="font-family: 'Cinzel', serif; font-size: 11px; color: var(--text-light); font-weight: 600; letter-spacing: 1px;">
                             UBICACIÓN
                         </div>
 
-                        <iframe
-                            class="map-embed"
+                        <iframe class="map-embed"
                             src="https://maps.google.com/maps?q=Jard%C3%ADn%20Tuxpam&t=&z=15&ie=UTF8&iwloc=&output=embed"
                             loading="lazy">
                         </iframe>
 
-                        <a href="https://maps.google.com/maps/place//data=!4m2!3m1!1s0x85d1fd0073a40add:0x7de99cfb003fe4de?entry=s&sa=X&ved=2ahUKEwi-j9rQucuUAxXQm2oFHT2fKEUQ4kB6BAgWEAA&hl=es" target="_blank" class="btn-link">
+                        <a href="https://maps.google.com/maps/place//data=!4m2!3m1!1s0x85d1fd0073a40add:0x7de99cfb003fe4de?entry=s&sa=X&ved=2ahUKEwi-j9rQucuUAxXQm2oFHT2fKEUQ4kB6BAgWEAA&hl=es"
+                            target="_blank" class="btn-link">
                             Ver en Maps
                         </a>
 
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section-tag">Galería</div>
+
+            <div class="gallery-carousel">
+
+                <div class="gallery-track">
+
+                    <div class="gallery-slide">
+                        <img src="assets/foto1.jpg" alt="Foto 1">
+                    </div>
+
+                    <div class="gallery-slide">
+                        <img src="assets/foto2.jpg" alt="Foto 2">
+                    </div>
+
+                    <div class="gallery-slide">
+                        <img src="assets/foto3.jpg" alt="Foto 3">
+                    </div>
+
+                    <div class="gallery-slide">
+                        <img src="assets/foto1.jpg" alt="Foto 1">
+                    </div>
+
+                    <div class="gallery-slide">
+                        <img src="assets/foto2.jpg" alt="Foto 2">
+                    </div>
+
+                    <div class="gallery-slide">
+                        <img src="assets/foto3.jpg" alt="Foto 3">
                     </div>
 
                 </div>
@@ -643,26 +852,29 @@
             <p class="phrase" style="font-size: 16px; margin-bottom: 20px;">
                 Tu presencia es el regalo más hermoso que podemos recibir.<br>
 
-                <span style="font-family: 'Montserrat', sans-serif; font-style: normal; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-top: 10px;">
-                    (Detalles Pendientes)
+                <span
+                    style="font-family: 'Montserrat', sans-serif; font-style: normal; font-size: 12px; color: var(--text-muted); display:block; margin-top:15px;">
+                    Si deseas tener un detalle con Joshua, puedes hacerlo aquí:
                 </span>
             </p>
+
+            <a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/52010432" target="_blank"
+                class="btn-link">
+                Ver Mesa de Regalos
+            </a>
 
             <div class="divider"></div>
 
             <div class="section-tag">Confirmación</div>
 
-            <p style="font-size: 13px; font-family: 'Montserrat', sans-serif; font-weight: 400; opacity: 0.9; margin-bottom: 5px;">
+            <p
+                style="font-size: 13px; font-family: 'Montserrat', sans-serif; font-weight: 400; opacity: 0.9; margin-bottom: 5px;">
                 Agradecemos confirmar tu asistencia antes del evento.
             </p>
 
             <div class="confirm-form">
 
-                <input
-                    type="text"
-                    id="guestName"
-                    class="confirm-input"
-                    placeholder="Nombre del asistente">
+                <input type="text" id="guestName" class="confirm-input" placeholder="Nombre del asistente">
 
                 <select id="guestCount" class="confirm-select">
                     <option value="1">1 persona</option>
@@ -679,10 +891,6 @@
 
             <div class="divider"></div>
 
-            <div style="font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px; color: var(--text-muted); margin-top: 20px; font-weight: 600;">
-                INVYTIA PREVIEW DATA
-            </div>
-
         </div>
 
     </main>
@@ -691,13 +899,13 @@
 
         let targetDateObj = new Date("June 6, 2026 10:00:00");
 
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
 
             try {
 
                 const params = new URLSearchParams(window.location.search);
 
-                if(params.has('nombre')) {
+                if (params.has('nombre')) {
 
                     const nombre = params.get('nombre');
 
@@ -705,42 +913,71 @@
                     document.getElementById('sobre-nombre').textContent = nombre;
                 }
 
-                if(params.has('fecha') && params.get('fecha') !== '') {
+                if (params.has('fecha') && params.get('fecha') !== '') {
 
                     const fechaRaw = params.get('fecha');
                     const partes = fechaRaw.split('-');
 
-                    if(partes.length === 3) {
-
+                    if (partes.length === 3) {
                         targetDateObj = new Date(`${fechaRaw}T10:00:00`);
                     }
                 }
 
                 const fotoLocal = sessionStorage.getItem('invytia_foto_preview');
 
-                if(fotoLocal) {
-
+                if (fotoLocal) {
                     document.getElementById('main-invitation').style.backgroundImage = `url('${fotoLocal}')`;
                 }
 
             } catch (error) {
 
                 console.error("Error al procesar la configuración:", error);
+
             }
+
         });
 
         function openEnvelope() {
 
             document.querySelector('.envelope-wrapper').classList.add('open');
 
+            const music = document.getElementById('bg-music');
+
+            music.play().catch(() => { });
+
+            document.getElementById('music-toggle').classList.remove('hidden');
+
             setTimeout(() => {
 
                 document.getElementById('envelope-screen').classList.add('fade-out');
+
                 document.body.classList.add('content-active');
 
                 createFlowerPetals();
 
-            }, 1200);
+            }, 1400);
+
+        }
+
+        function toggleMusic() {
+
+            const music = document.getElementById('bg-music');
+            const btn = document.getElementById('music-toggle');
+
+            if (music.paused) {
+
+                music.play();
+
+                btn.innerHTML = '⏸';
+
+            } else {
+
+                music.pause();
+
+                btn.innerHTML = '▶';
+
+            }
+
         }
 
         function confirmAttendance() {
@@ -751,9 +988,10 @@
             const mensaje = `¡Hola! Confirmo mi asistencia al Bautizo de Joshua.%0A%0ANombre: ${nombre}%0APersonas asistentes: ${personas}`;
 
             window.open(`https://wa.me/5532327877?text=${mensaje}`, '_blank');
+
         }
 
-        const countdownInterval = setInterval(function() {
+        const countdownInterval = setInterval(function () {
 
             const timeLeft = targetDateObj.getTime() - new Date().getTime();
 
@@ -765,6 +1003,7 @@
                     "<div style='font-family:\"Cinzel\", serif; color:var(--text-light); letter-spacing:2px; font-weight:600;'>¡Llegó el Gran Día!</div>";
 
                 return;
+
             }
 
             document.getElementById("days").innerText =
@@ -800,16 +1039,18 @@
                 petal.style.bottom = `-30px`;
 
                 petal.style.backgroundColor =
-                    ['#e6d3c0', '#e8dcca', '#c5a880'][Math.floor(Math.random()*3)];
+                    ['#e6d3c0', '#e8dcca', '#c5a880'][Math.floor(Math.random() * 3)];
 
                 petal.style.animationDuration = `${Math.random() * 10 + 7}s`;
                 petal.style.animationDelay = `${Math.random() * 6}s`;
 
                 container.appendChild(petal);
             }
+
         }
 
     </script>
 
 </body>
+
 </html>
