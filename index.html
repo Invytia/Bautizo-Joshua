@@ -39,6 +39,10 @@
             overflow-x: hidden;
         }
 
+        /* =========================
+           SOBRE PREMIUM CORREGIDO
+        ========================= */
+
         #envelope-screen {
             position: fixed;
             inset: 0;
@@ -49,6 +53,7 @@
             align-items: center;
             overflow: hidden;
             transition: opacity 1.2s ease, visibility 1.2s;
+            padding: 20px;
         }
 
         #envelope-screen.fade-out {
@@ -70,15 +75,15 @@
             width: 200%;
             height: 200%;
             background:
-                radial-gradient(circle, rgba(255, 255, 255, .25) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: moveParticles 20s linear infinite;
-            opacity: .4;
+                radial-gradient(circle, rgba(255, 255, 255, .22) 1px, transparent 1px);
+            background-size: 38px 38px;
+            animation: moveParticles 22s linear infinite;
+            opacity: .35;
         }
 
         .premium-particles::after {
             animation-direction: reverse;
-            opacity: .2;
+            opacity: .18;
         }
 
         @keyframes moveParticles {
@@ -93,14 +98,14 @@
 
         .premium-glow {
             position: absolute;
-            width: 480px;
-            height: 480px;
+            width: 550px;
+            height: 550px;
             border-radius: 50%;
             background: radial-gradient(circle,
                     rgba(255, 255, 255, .5) 0%,
                     rgba(255, 255, 255, 0) 70%);
-            filter: blur(30px);
-            animation: glowPulse 4s ease-in-out infinite;
+            filter: blur(35px);
+            animation: glowPulse 5s ease-in-out infinite;
         }
 
         @keyframes glowPulse {
@@ -111,15 +116,20 @@
             }
 
             50% {
-                transform: scale(1.08);
+                transform: scale(1.06);
             }
         }
 
         .envelope-wrapper {
             position: relative;
+            width: 380px;
+            height: 360px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
             cursor: pointer;
-            transform-style: preserve-3d;
-            perspective: 1800px;
+            perspective: 2200px;
             animation: floatEnvelope 6s ease-in-out infinite;
         }
 
@@ -127,7 +137,7 @@
 
             0%,
             100% {
-                transform: translateY(0);
+                transform: translateY(0px);
             }
 
             50% {
@@ -135,12 +145,19 @@
             }
         }
 
+        .envelope-area {
+            position: relative;
+            width: 360px;
+            height: 250px;
+            margin-top: 20px;
+        }
+
         .envelope-shadow {
             position: absolute;
-            width: 340px;
-            height: 40px;
+            width: 300px;
+            height: 38px;
             background: rgba(0, 0, 0, .12);
-            filter: blur(20px);
+            filter: blur(18px);
             border-radius: 50%;
             bottom: -30px;
             left: 50%;
@@ -148,15 +165,15 @@
         }
 
         .envelope {
-            position: relative;
-            width: 360px;
-            height: 250px;
+            position: absolute;
+            inset: 0;
             background:
                 linear-gradient(145deg, #f7eee3, #e3ccb2);
-            border-radius: 0 0 12px 12px;
+            border-radius: 0 0 14px 14px;
             box-shadow:
                 0 30px 70px rgba(0, 0, 0, .16),
                 inset 0 2px 4px rgba(255, 255, 255, .9);
+            overflow: hidden;
         }
 
         .envelope::before {
@@ -167,6 +184,7 @@
             border-right: 180px solid #c8a57c;
             border-top: 125px solid transparent;
             border-bottom: 125px solid #c8a57c;
+            z-index: 2;
         }
 
         .envelope::after {
@@ -177,6 +195,7 @@
             border-left: 180px solid #c8a57c;
             border-top: 125px solid transparent;
             border-bottom: 125px solid #c8a57c;
+            z-index: 2;
         }
 
         .front-flap {
@@ -188,7 +207,7 @@
             border-top: 145px solid #d5b48c;
             transform-origin: top;
             transition: transform 1s cubic-bezier(.22, 1, .36, 1);
-            z-index: 4;
+            z-index: 5;
         }
 
         .envelope-wrapper.open .front-flap {
@@ -202,9 +221,9 @@
             background:
                 linear-gradient(to bottom, #fffdf9, #f8f2ea);
             left: 50%;
-            top: 28px;
+            top: 30px;
             transform: translateX(-50%);
-            border-radius: 10px;
+            border-radius: 12px;
             z-index: 1;
             transition: all 1s cubic-bezier(.22, 1, .36, 1);
             box-shadow: 0 15px 35px rgba(0, 0, 0, .12);
@@ -212,26 +231,29 @@
         }
 
         .envelope-wrapper.open .envelope-letter {
-            transform: translateX(-50%) translateY(-150px) scale(1.02);
+            transform: translateX(-50%) translateY(-135px) scale(1.03);
         }
 
         .letter-inner {
             width: 100%;
             height: 100%;
-            padding: 25px 20px;
+            padding: 22px 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .letter-top-icon img {
             width: 42px;
             height: 42px;
             object-fit: contain;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .letter-title {
             font-family: 'Cinzel', serif;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             font-size: 11px;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -239,7 +261,7 @@
 
         .letter-name {
             font-family: 'Pinyon Script', cursive;
-            font-size: 62px;
+            font-size: 60px;
             color: var(--text-light);
             line-height: 1;
             margin-top: 10px;
@@ -262,14 +284,14 @@
 
         .wax-seal {
             position: absolute;
-            top: 112px;
+            top: 108px;
             left: 50%;
             transform: translateX(-50%);
-            width: 62px;
-            height: 62px;
+            width: 64px;
+            height: 64px;
             background: var(--bg-dark);
             border-radius: 50%;
-            z-index: 5;
+            z-index: 6;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -291,9 +313,7 @@
         }
 
         .envelope-text {
-            position: absolute;
-            bottom: -55px;
-            width: 100%;
+            margin-top: 38px;
             text-align: center;
             font-family: 'Cinzel', serif;
             font-size: 18px;
@@ -303,9 +323,7 @@
         }
 
         .hint-text {
-            position: absolute;
-            bottom: -85px;
-            width: 100%;
+            margin-top: 14px;
             text-align: center;
             font-size: 11px;
             color: var(--text-muted);
@@ -324,6 +342,8 @@
                 opacity: 1;
             }
         }
+
+        /* ========================= */
 
         #main-invitation {
             min-height: 100vh;
@@ -534,26 +554,33 @@
             font-size: 14px;
         }
 
+        /* =========================
+           GALERIA CORREGIDA
+        ========================= */
+
         .gallery-wrapper {
             width: 100%;
             margin-top: 20px;
+            overflow: hidden;
         }
 
         .gallery-carousel {
-            overflow: hidden;
             width: 100%;
-            cursor: grab;
+            overflow: hidden;
+            touch-action: pan-y;
         }
 
         .gallery-track {
             display: flex;
             gap: 14px;
-            transition: transform .3s ease;
+            transition: transform .45s ease;
+            will-change: transform;
         }
 
         .gallery-slide {
-            min-width: 85%;
+            min-width: 100%;
             flex-shrink: 0;
+            user-select: none;
         }
 
         .gallery-slide img {
@@ -563,11 +590,9 @@
             border-radius: 14px;
             border: 1px solid var(--gold-secondary);
             cursor: pointer;
-            transition: transform .3s ease;
-        }
-
-        .gallery-slide img:hover {
-            transform: scale(1.02);
+            pointer-events: auto;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         .image-viewer {
@@ -603,6 +628,8 @@
             cursor: pointer;
         }
 
+        /* ========================= */
+
         .music-btn {
             position: fixed;
             right: 20px;
@@ -611,13 +638,14 @@
             height: 58px;
             border-radius: 50%;
             border: none;
-            background: rgba(255, 255, 255, .2);
+            background: rgba(74, 65, 56, .85);
             backdrop-filter: blur(10px);
             color: #fff;
             font-size: 22px;
             cursor: pointer;
             z-index: 9999;
             transition: .3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
         }
 
         .music-btn.hidden {
@@ -651,6 +679,16 @@
         }
 
         @media(max-width:400px) {
+
+            .envelope-wrapper {
+                width: 100%;
+                height: 330px;
+            }
+
+            .envelope-area {
+                width: 320px;
+                height: 220px;
+            }
 
             .envelope {
                 width: 320px;
@@ -688,6 +726,10 @@
                 height: 300px;
             }
 
+            .envelope-text {
+                margin-top: 28px;
+            }
+
         }
     </style>
 
@@ -703,6 +745,7 @@
         ⏸
     </button>
 
+    <!-- SOBRE -->
     <div id="envelope-screen">
 
         <div class="premium-particles"></div>
@@ -711,41 +754,45 @@
 
         <div class="envelope-wrapper" onclick="openEnvelope()">
 
-            <div class="envelope-shadow"></div>
+            <div class="envelope-area">
 
-            <div class="front-flap"></div>
+                <div class="envelope-shadow"></div>
 
-            <div class="envelope-letter">
+                <div class="front-flap"></div>
 
-                <div class="letter-inner">
+                <div class="envelope-letter">
 
-                    <div class="letter-top-icon">
-                        <img src="assets/icono.png" alt="Icono">
-                    </div>
+                    <div class="letter-inner">
 
-                    <div class="letter-title">
-                        Mi Bautizo
-                    </div>
+                        <div class="letter-top-icon">
+                            <img src="assets/icono.png" alt="Icono">
+                        </div>
 
-                    <div class="letter-name" id="sobre-nombre">
-                        Joshua
-                    </div>
+                        <div class="letter-title">
+                            Mi Bautizo
+                        </div>
 
-                    <div class="letter-line"></div>
+                        <div class="letter-name" id="sobre-nombre">
+                            Joshua
+                        </div>
 
-                    <div class="letter-subtitle">
-                        Invitación Especial
+                        <div class="letter-line"></div>
+
+                        <div class="letter-subtitle">
+                            Invitación Especial
+                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
+                <div class="wax-seal">
+                    <img src="assets/icono.png" alt="Icono">
+                </div>
 
-            <div class="wax-seal">
-                <img src="assets/icono.png" alt="Icono">
-            </div>
+                <div class="envelope"></div>
 
-            <div class="envelope"></div>
+            </div>
 
             <div class="envelope-text">
                 Joshua
@@ -759,6 +806,7 @@
 
     </div>
 
+    <!-- CONTENIDO -->
     <main id="main-invitation">
 
         <div id="lanterns-container"
@@ -883,11 +931,12 @@
 
             <div class="divider"></div>
 
+            <!-- GALERIA -->
             <div class="section-tag">Galería</div>
 
             <div class="gallery-wrapper">
 
-                <div class="gallery-carousel">
+                <div class="gallery-carousel" id="galleryCarousel">
 
                     <div class="gallery-track" id="galleryTrack">
 
@@ -948,6 +997,7 @@
 
     </main>
 
+    <!-- VIEWER -->
     <div id="imageViewer" class="image-viewer" onclick="closeGalleryImage()">
 
         <span class="viewer-close">×</span>
@@ -973,6 +1023,8 @@
                     document.getElementById('main-nombre').textContent = nombre;
                     document.getElementById('sobre-nombre').textContent = nombre;
 
+                    document.querySelector('.envelope-text').textContent = nombre;
+
                 }
 
             } catch (error) {
@@ -981,7 +1033,11 @@
 
             }
 
+            initGallery();
+
         });
+
+        /* SOBRE */
 
         function openEnvelope() {
 
@@ -1005,6 +1061,8 @@
 
         }
 
+        /* MUSICA */
+
         function toggleMusic() {
 
             const music = document.getElementById('bg-music');
@@ -1024,6 +1082,8 @@
 
         }
 
+        /* WHATSAPP */
+
         function confirmAttendance() {
 
             const nombre = document.getElementById('guestName').value || 'Invitado';
@@ -1035,6 +1095,8 @@
             window.open(`https://wa.me/5532327877?text=${mensaje}`, '_blank');
 
         }
+
+        /* VIEWER */
 
         function openGalleryImage(src) {
 
@@ -1053,84 +1115,134 @@
 
         }
 
-        const galleryTrack = document.getElementById('galleryTrack');
+        /* GALERIA CORREGIDA */
 
-        let currentIndex = 0;
-        let startX = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-        let isDragging = false;
+        function initGallery() {
 
-        const slides = document.querySelectorAll('.gallery-slide');
+            const track = document.getElementById('galleryTrack');
+            const slides = document.querySelectorAll('.gallery-slide');
 
-        galleryTrack.addEventListener('touchstart', touchStart);
-        galleryTrack.addEventListener('touchmove', touchMove);
-        galleryTrack.addEventListener('touchend', touchEnd);
+            let index = 0;
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
 
-        galleryTrack.addEventListener('mousedown', touchStart);
-        galleryTrack.addEventListener('mousemove', touchMove);
-        galleryTrack.addEventListener('mouseup', touchEnd);
-        galleryTrack.addEventListener('mouseleave', touchEnd);
+            function updateSlider(animated = true) {
 
-        function touchStart(e) {
+                const slideWidth = slides[0].offsetWidth + 14;
 
-            isDragging = true;
+                if (animated) {
+                    track.style.transition = 'transform .45s ease';
+                } else {
+                    track.style.transition = 'none';
+                }
 
-            startX = getPositionX(e);
+                track.style.transform =
+                    `translateX(-${index * slideWidth}px)`;
 
-            galleryTrack.style.transition = 'none';
-
-        }
-
-        function touchMove(e) {
-
-            if (!isDragging) return;
-
-            const currentPosition = getPositionX(e);
-
-            currentTranslate =
-                prevTranslate + currentPosition - startX;
-
-            galleryTrack.style.transform =
-                `translateX(${currentTranslate}px)`;
-
-        }
-
-        function touchEnd() {
-
-            if (!isDragging) return;
-
-            isDragging = false;
-
-            const movedBy = currentTranslate - prevTranslate;
-
-            if (movedBy < -80 && currentIndex < slides.length - 1) {
-                currentIndex++;
             }
 
-            if (movedBy > 80 && currentIndex > 0) {
-                currentIndex--;
+            function startDrag(x) {
+
+                isDragging = true;
+                startX = x;
+                currentX = x;
+
+                track.style.transition = 'none';
+
             }
 
-            currentTranslate =
-                currentIndex * -(slides[0].offsetWidth + 14);
+            function moveDrag(x) {
 
-            prevTranslate = currentTranslate;
+                if (!isDragging) return;
 
-            galleryTrack.style.transition = 'transform .35s ease';
+                currentX = x;
 
-            galleryTrack.style.transform =
-                `translateX(${currentTranslate}px)`;
+                const slideWidth = slides[0].offsetWidth + 14;
+
+                const move =
+                    (index * slideWidth) + (startX - currentX);
+
+                track.style.transform = `translateX(-${move}px)`;
+
+            }
+
+            function endDrag() {
+
+                if (!isDragging) return;
+
+                isDragging = false;
+
+                const diff = startX - currentX;
+
+                if (diff > 60) {
+
+                    index++;
+
+                    if (index >= slides.length) {
+                        index = 0;
+                    }
+
+                } else if (diff < -60) {
+
+                    index--;
+
+                    if (index < 0) {
+                        index = slides.length - 1;
+                    }
+
+                }
+
+                updateSlider(true);
+
+            }
+
+            /* TOUCH */
+
+            track.addEventListener('touchstart', (e) => {
+                startDrag(e.touches[0].clientX);
+            }, { passive: true });
+
+            track.addEventListener('touchmove', (e) => {
+                moveDrag(e.touches[0].clientX);
+            }, { passive: true });
+
+            track.addEventListener('touchend', endDrag);
+
+            /* MOUSE */
+
+            track.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                startDrag(e.clientX);
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                moveDrag(e.clientX);
+            });
+
+            window.addEventListener('mouseup', endDrag);
+
+            /* AUTO */
+
+            setInterval(() => {
+
+                if (isDragging) return;
+
+                index++;
+
+                if (index >= slides.length) {
+                    index = 0;
+                }
+
+                updateSlider(true);
+
+            }, 4500);
+
+            updateSlider(false);
 
         }
 
-        function getPositionX(e) {
-
-            return e.type.includes('mouse')
-                ? e.pageX
-                : e.touches[0].clientX;
-
-        }
+        /* COUNTDOWN */
 
         const countdownInterval = setInterval(function () {
 
@@ -1161,6 +1273,8 @@
                 Math.floor((timeLeft % (1000 * 60)) / 1000).toString().padStart(2, '0');
 
         }, 1000);
+
+        /* PETALOS */
 
         function createFlowerPetals() {
 
