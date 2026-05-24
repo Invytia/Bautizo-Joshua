@@ -250,7 +250,7 @@
                 <!-- CEREMONIA -->
                 <div class="info-block">
                     <div class="info-label">Ceremonia Religiosa</div>
-                    <div class="info-value-main">06.JUN.2026</div>
+                    <div class="info-value-main" id="main-fecha">06.JUN.2026</div>
                     <div class="info-value-sub">Sábado a las 10:00 a.m.<br>Parroquia del Purísimo Corazón de María</div>
                     
                     <div class="map-card">
@@ -264,7 +264,7 @@
                 <!-- RECEPCIÓN -->
                 <div class="info-block">
                     <div class="info-label">Recepción</div>
-                    <div class="info-value-main">Desayuno Brunch</div>
+                    <div class="info-value-main" id="main-ciudad">Desayuno Brunch</div>
                     <div class="info-value-sub">A partir de las 12:00 p.m.<br>Jardín Tuxpam</div>
                     
                     <div class="map-card">
@@ -300,7 +300,7 @@
             <a href="https://wa.me/525532327877?text=¡Hola!%20Confirmo%20mi%20asistencia%20al%20Bautizo%20de%20Joshua." target="_blank" class="btn-whatsapp">Confirmar Asistencia</a>
 
             <div class="divider"></div>
-            <div style="font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px; color: var(--text-muted); margin-top: 20px; font-weight: 600;">INVYTIA</div>
+            <div style="font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px; color: var(--text-muted); margin-top: 20px; font-weight: 600;">INVYTIA PREVIEW DATA</div>
         </div>
     </main>
 
@@ -320,6 +320,35 @@
                     document.getElementById('main-nombre').textContent = nombre;
                     document.getElementById('sobre-nombre').textContent = nombre;
                 }
+
+                if(params.has('ciudad')) {
+                    document.getElementById('main-ciudad').textContent = params.get('ciudad');
+                }
+
+                if(params.has('fecha') && params.get('fecha') !== '') {
+                    const fechaRaw = params.get('fecha'); 
+                    const partes = fechaRaw.split('-');
+                    if(partes.length === 3) {
+                        const year = partes[0];
+                        const monthNum = parseInt(partes[1], 10);
+                        const day = partes[2];
+                        const meses = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
+                        document.getElementById('main-fecha').textContent = `${day}.${meses[monthNum - 1]}.${year}`;
+                        targetDateObj = new Date(`${fechaRaw}T10:00:00`); 
+                    }
+                }
+
+                const fotoLocal = sessionStorage.getItem('invytia_foto_preview');
+                if(fotoLocal) {
+                    document.getElementById('main-invitation').style.backgroundImage = `url('${fotoLocal}')`;
+                }
+
+                if(params.has('paleta')) {
+                    const root = document.documentElement;
+                    const p = params.get('paleta');
+                    // Variables de color del configurador aplican aquí.
+                }
+
             } catch (error) {
                 console.error("Error al procesar la configuración:", error);
             }
