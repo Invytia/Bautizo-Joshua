@@ -1,911 +1,692 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Mi Bautizo - Joshua</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-dark: #fcfaf8;
-            --bg-bayou: linear-gradient(135deg, #f5eadd 0%, #e6d3c0 100%);
-            --gold-primary: #c5a880;
-            --gold-secondary: #e8dcca;
-            --text-light: #4a4138;
-            --text-muted: #96887a;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body,
-        html {
-            width: 100%;
-            height: 100%;
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            overflow-x: hidden;
-        }
-
-        /* =========================
-           SOBRE PREMIUM CORREGIDO
-        ========================== */
-
-        #envelope-screen {
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(circle at top, rgba(255,255,255,.45), transparent 45%),
-                linear-gradient(135deg, #f5eadd 0%, #e8d8c7 50%, #dcc3ab 100%);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            transition: opacity 1.2s ease, visibility 1.2s;
-        }
-
-        #envelope-screen.fade-out {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .premium-particles {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-        }
-
-        .premium-particles::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background:
-                radial-gradient(circle, rgba(255,255,255,.35) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: moveParticles 22s linear infinite;
-        }
-
-        @keyframes moveParticles {
-            from {
-                transform: translate(0,0);
-            }
-
-            to {
-                transform: translate(-60px,-60px);
-            }
-        }
-
-        .premium-glow {
-            position: absolute;
-            width: 520px;
-            height: 520px;
-            border-radius: 50%;
-            background: radial-gradient(circle,
-                    rgba(255,255,255,.55) 0%,
-                    rgba(255,255,255,0) 70%);
-            filter: blur(35px);
-            animation: glowPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-            0%,100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.08);
-            }
-        }
-
-        .envelope-wrapper {
-            position: relative;
-            width: 380px;
-            height: 350px;
-            cursor: pointer;
-            perspective: 2000px;
-            animation: floatEnvelope 5s ease-in-out infinite;
-        }
-
-        @keyframes floatEnvelope {
-            0%,100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .envelope-shadow {
-            position: absolute;
-            width: 260px;
-            height: 45px;
-            background: rgba(0,0,0,.18);
-            filter: blur(22px);
-            border-radius: 50%;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .envelope {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 360px;
-            height: 230px;
-            background: linear-gradient(145deg, #f6ecdf, #e3c8a8);
-            border-radius: 0 0 14px 14px;
-            overflow: hidden;
-            box-shadow:
-                0 30px 70px rgba(0,0,0,.18),
-                inset 0 2px 4px rgba(255,255,255,.9);
-        }
-
-        .envelope::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-left: 180px solid #c9a57d;
-            border-top: 115px solid transparent;
-            border-bottom: 115px solid #c9a57d;
-            z-index: 2;
-        }
-
-        .envelope::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            border-right: 180px solid #c9a57d;
-            border-top: 115px solid transparent;
-            border-bottom: 115px solid #c9a57d;
-            z-index: 2;
-        }
-
-        .front-flap {
-            position: absolute;
-            bottom: 165px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 180px solid transparent;
-            border-right: 180px solid transparent;
-            border-top: 135px solid #d7b58c;
-            transform-origin: top;
-            z-index: 5;
-            transition: transform 1s cubic-bezier(.22,1,.36,1);
-        }
-
-        .envelope-wrapper.open .front-flap {
-            transform: translateX(-50%) rotateX(180deg);
-        }
-
-        .envelope-letter {
-            position: absolute;
-            left: 50%;
-            bottom: 75px;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 185px;
-            background: linear-gradient(to bottom, #fffdf9, #f6efe7);
-            border-radius: 12px;
-            z-index: 1;
-            transition: all 1s cubic-bezier(.22,1,.36,1);
-            box-shadow: 0 18px 35px rgba(0,0,0,.14);
-            overflow: hidden;
-        }
-
-        .envelope-wrapper.open .envelope-letter {
-            transform: translateX(-50%) translateY(-120px);
-        }
-
-        .letter-inner {
-            width: 100%;
-            height: 100%;
-            padding: 22px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .letter-top-icon img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            margin-bottom: 10px;
-        }
-
-        .letter-title {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 5px;
-            font-size: 10px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .letter-name {
-            font-family: 'Pinyon Script', cursive;
-            font-size: 62px;
-            color: var(--text-light);
-            line-height: 1;
-            margin-top: 10px;
-        }
-
-        .letter-line {
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
-            margin: 14px auto;
-        }
-
-        .letter-subtitle {
-            font-size: 10px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .wax-seal {
-            position: absolute;
-            left: 50%;
-            bottom: 138px;
-            transform: translateX(-50%);
-            width: 62px;
-            height: 62px;
-            background: var(--bg-dark);
-            border-radius: 50%;
-            z-index: 8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid var(--gold-primary);
-            box-shadow:
-                0 10px 25px rgba(0,0,0,.18),
-                inset 0 2px 6px rgba(255,255,255,.9);
-            transition: all .5s ease;
-        }
-
-        .wax-seal img {
-            width: 30px;
-            height: 30px;
-        }
-
-        .envelope-wrapper.open .wax-seal {
-            transform: translateX(-50%) scale(0);
-            opacity: 0;
-        }
-
-        .envelope-text {
-            position: absolute;
-            width: 100%;
-            bottom: -8px;
-            text-align: center;
-            font-family: 'Cinzel', serif;
-            font-size: 18px;
-            letter-spacing: 6px;
-            font-weight: 600;
-            color: var(--text-light);
-        }
-
-        .hint-text {
-            position: absolute;
-            width: 100%;
-            bottom: -35px;
-            text-align: center;
-            font-size: 11px;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%,100% {
-                opacity: .4;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        /* ========================= */
-
-        #main-invitation {
-            min-height: 100vh;
-            background: url('assets/imagen.jpg') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            padding: 60px 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1.4s ease;
-        }
-
-        body.content-active #main-invitation {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .invitation-frame {
-            max-width: 500px;
-            width: 100%;
-            border: 1px solid var(--gold-secondary);
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-            background: rgba(252, 250, 248, 0.85);
-            box-shadow: 0 15px 35px rgba(74, 65, 56, 0.08);
-            backdrop-filter: blur(8px);
-            border-radius: 6px;
-            z-index: 2;
-        }
-
-        .lotus-header img {
-            width: 45px;
-            height: 45px;
-            object-fit: contain;
-            margin-bottom: 20px;
-        }
-
-        .section-tag {
-            font-family: 'Cinzel', serif;
-            font-size: 11px;
-            letter-spacing: 5px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .main-title {
-            font-family: 'Pinyon Script', cursive;
-            font-size: 65px;
-            color: var(--text-light);
-            margin-bottom: 15px;
-            line-height: 1.1;
-        }
-
-        .phrase {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 18px;
-            color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 35px;
-            padding: 0 15px;
-        }
-
-        .divider {
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
-            margin: 25px auto;
-        }
-
-        .info-block {
-            margin-bottom: 30px;
-        }
-
-        .info-label {
-            font-family: 'Cinzel', serif;
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .name-main {
-            font-family: 'Cinzel', serif;
-            font-size: 17px;
-            font-weight: 600;
-            color: var(--text-light);
-            margin-bottom: 4px;
-        }
-
-        .info-value-main {
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-light);
-            letter-spacing: 2px;
-        }
-
-        .info-value-sub {
-            font-size: 13px;
-            margin-top: 5px;
-            line-height: 1.4;
-        }
-
-        .countdown-grid {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 25px auto 10px;
-            max-width: 350px;
-        }
-
-        .countdown-item {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid var(--gold-secondary);
-            padding: 10px 5px;
-            border-radius: 4px;
-        }
-
-        .countdown-number {
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .countdown-label {
-            font-size: 9px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .event-image {
-            width: 100%;
-            border-radius: 4px;
-            margin-top: 15px;
-            border: 1px solid var(--gold-secondary);
-        }
-
-        .map-card {
-            margin-top: 15px;
-            border: 1px solid var(--gold-secondary);
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px 15px;
-            border-radius: 4px;
-        }
-
-        .map-embed {
-            width: 100%;
-            height: 220px;
-            border: 0;
-            border-radius: 4px;
-            margin-top: 15px;
-        }
-
-        .btn-link,
-        .btn-whatsapp {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
-            padding: 13px 28px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
-            transition: .3s ease;
-            cursor: pointer;
-        }
-
-        .btn-link {
-            border: 1px solid var(--gold-primary);
-            color: var(--text-light);
-        }
-
-        .btn-link:hover {
-            background: var(--gold-primary);
-            color: #fff;
-        }
-
-        .btn-whatsapp {
-            background: var(--text-light);
-            color: #fff;
-            border: 1px solid var(--text-light);
-        }
-
-        .btn-whatsapp:hover {
-            background: #fff;
-            color: var(--text-light);
-        }
-
-        .confirm-input,
-        .confirm-select {
-            width: 100%;
-            padding: 14px 16px;
-            margin-top: 12px;
-            border: 1px solid var(--gold-secondary);
-            border-radius: 4px;
-            background: rgba(255,255,255,.85);
-            font-size: 14px;
-        }
-
-        /* =========================
-           GALERÍA CORREGIDA
-        ========================== */
-
-        .gallery-wrapper {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .gallery-carousel {
-            width: 100%;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            display: flex;
-            gap: 14px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            padding-bottom: 5px;
-        }
-
-        .gallery-carousel::-webkit-scrollbar {
-            display: none;
-        }
-
-        .gallery-slide {
-            min-width: 85%;
-            flex: 0 0 85%;
-            scroll-snap-align: center;
-        }
-
-        .gallery-slide img {
-            width: 100%;
-            height: 360px;
-            object-fit: cover;
-            border-radius: 14px;
-            border: 1px solid var(--gold-secondary);
-            cursor: pointer;
-            transition: transform .3s ease;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-
-        .gallery-slide img:hover {
-            transform: scale(1.02);
-        }
-
-        .image-viewer {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.92);
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity .3s ease;
-        }
-
-        .image-viewer.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .image-viewer img {
-            max-width: 92%;
-            max-height: 88%;
-            border-radius: 12px;
-        }
-
-        .viewer-close {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            color: #fff;
-            font-size: 42px;
-            cursor: pointer;
-        }
-
-        .music-btn {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255,255,255,.2);
-            backdrop-filter: blur(10px);
-            color: #fff;
-            font-size: 22px;
-            cursor: pointer;
-            z-index: 9999;
-            transition: .3s ease;
-        }
-
-        .music-btn.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .flower-petal {
-            position: absolute;
-            background-color: var(--gold-primary);
-            border-radius: 150% 0 150% 0;
-            pointer-events: none;
-            animation: float-up infinite ease-in;
-            opacity: 0;
-        }
-
-        @keyframes float-up {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0;
-            }
-
-            15% {
-                opacity: .6;
-            }
-
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        @media(max-width:400px) {
-
-            .envelope-wrapper {
-                width: 320px;
-                height: 320px;
-            }
-
-            .envelope {
-                width: 310px;
-                height: 205px;
-            }
-
-            .front-flap {
-                border-left-width: 155px;
-                border-right-width: 155px;
-                border-top-width: 118px;
-            }
-
-            .envelope::before {
-                border-left-width: 155px;
-                border-top-width: 102px;
-                border-bottom-width: 102px;
-            }
-
-            .envelope::after {
-                border-right-width: 155px;
-                border-top-width: 102px;
-                border-bottom-width: 102px;
-            }
-
-            .envelope-letter {
-                width: 250px;
-                height: 165px;
-            }
-
-            .letter-name {
-                font-size: 52px;
-            }
-
-            .gallery-slide img {
-                height: 300px;
-            }
-        }
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Bautizo - Joshua</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+--bg-dark: #fcfaf8;
+--bg-bayou: linear-gradient(135deg, #f5eadd 0%, #e6d3c0 100%);
+--gold-primary: #c5a880;
+--gold-secondary: #e8dcca;
+--text-light: #4a4138;
+--text-muted: #96887a;
+}
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+body,
+html {
+width: 100%;
+height: 100%;
+font-family: 'Montserrat', sans-serif;
+background-color: var(--bg-dark);
+color: var(--text-light);
+overflow-x: hidden;
+}
+#envelope-screen {
+position: fixed;
+inset: 0;
+background: var(--bg-bayou);
+z-index: 1000;
+display: flex;
+justify-content: center;
+align-items: center;
+overflow: hidden;
+transition: opacity 1.2s ease, visibility 1.2s;
+}
+#envelope-screen.fade-out {
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
+}
+.premium-particles {
+position: absolute;
+inset: 0;
+overflow: hidden;
+}
+.premium-particles::before,
+.premium-particles::after {
+content: '';
+position: absolute;
+width: 200%;
+height: 200%;
+background: radial-gradient(circle, rgba(255, 255, 255, .25) 1px, transparent 1px);
+background-size: 40px 40px;
+animation: moveParticles 20s linear infinite;
+opacity: .4;
+}
+.premium-particles::after {
+animation-direction: reverse;
+opacity: .2;
+}
+@keyframes moveParticles {
+from {
+transform: translate(0, 0);
+}
+to {
+transform: translate(-50px, -50px);
+}
+}
+.premium-glow {
+position: absolute;
+width: 480px;
+height: 480px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(255, 255, 255, .5) 0%, rgba(255, 255, 255, 0) 70%);
+filter: blur(30px);
+animation: glowPulse 4s ease-in-out infinite;
+}
+@keyframes glowPulse {
+0%,
+100% {
+transform: scale(1);
+}
+50% {
+transform: scale(1.08);
+}
+}
+.envelope-wrapper {
+position: relative;
+cursor: pointer;
+transform-style: preserve-3d;
+perspective: 1800px;
+animation: floatEnvelope 6s ease-in-out infinite;
+}
+@keyframes floatEnvelope {
+0%,
+100% {
+transform: translateY(0);
+}
+50% {
+transform: translateY(-10px);
+}
+}
+.envelope-shadow {
+position: absolute;
+width: 340px;
+height: 40px;
+background: rgba(0, 0, 0, .12);
+filter: blur(20px);
+border-radius: 50%;
+bottom: -30px;
+left: 50%;
+transform: translateX(-50%);
+}
+.envelope {
+position: relative;
+width: 360px;
+height: 250px;
+background: linear-gradient(145deg, #f7eee3, #e3ccb2);
+border-radius: 0 0 12px 12px;
+box-shadow: 0 30px 70px rgba(0, 0, 0, .16), inset 0 2px 4px rgba(255, 255, 255, .9);
+}
+.envelope::before {
+content: '';
+position: absolute;
+top: 0;
+right: 0;
+border-right: 180px solid #c8a57c;
+border-top: 125px solid transparent;
+border-bottom: 125px solid #c8a57c;
+}
+.envelope::after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+border-left: 180px solid #c8a57c;
+border-top: 125px solid transparent;
+border-bottom: 125px solid #c8a57c;
+}
+.front-flap {
+position: absolute;
+top: 0;
+left: 0;
+border-left: 180px solid transparent;
+border-right: 180px solid transparent;
+border-top: 145px solid #d5b48c;
+transform-origin: top;
+transition: transform 1s cubic-bezier(.22, 1, .36, 1);
+z-index: 4;
+}
+.envelope-wrapper.open .front-flap {
+transform: rotateX(180deg);
+}
+.envelope-letter {
+position: absolute;
+width: 290px;
+height: 190px;
+background: linear-gradient(to bottom, #fffdf9, #f8f2ea);
+left: 50%;
+top: 28px;
+transform: translateX(-50%);
+border-radius: 10px;
+z-index: 1;
+transition: all 1s cubic-bezier(.22, 1, .36, 1);
+box-shadow: 0 15px 35px rgba(0, 0, 0, .12);
+overflow: hidden;
+}
+.envelope-wrapper.open .envelope-letter {
+transform: translateX(-50%) translateY(-150px) scale(1.02);
+}
+.letter-inner {
+width: 100%;
+height: 100%;
+padding: 25px 20px;
+text-align: center;
+}
+.letter-top-icon img {
+width: 42px;
+height: 42px;
+object-fit: contain;
+margin-bottom: 12px;
+}
+.letter-title {
+font-family: 'Cinzel', serif;
+letter-spacing: 5px;
+font-size: 11px;
+color: var(--text-muted);
+text-transform: uppercase;
+}
+.letter-name {
+font-family: 'Pinyon Script', cursive;
+font-size: 62px;
+color: var(--text-light);
+line-height: 1;
+margin-top: 10px;
+}
+.letter-line {
+width: 60px;
+height: 1px;
+background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
+margin: 12px auto;
+}
+.letter-subtitle {
+font-family: 'Montserrat', sans-serif;
+font-size: 11px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(--text-muted);
+}
+.wax-seal {
+position: absolute;
+top: 112px;
+left: 50%;
+transform: translateX(-50%);
+width: 62px;
+height: 62px;
+background: var(--bg-dark);
+border-radius: 50%;
+z-index: 5;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0 10px 25px rgba(0, 0, 0, .18), inset 0 2px 6px rgba(255, 255, 255, .9);
+transition: all .5s ease;
+border: 2px solid var(--gold-primary);
+}
+.wax-seal img {
+width: 30px;
+height: 30px;
+}
+.envelope-wrapper.open .wax-seal {
+transform: translateX(-50%) scale(0);
+opacity: 0;
+}
+.envelope-text {
+position: absolute;
+bottom: -55px;
+width: 100%;
+text-align: center;
+font-family: 'Cinzel', serif;
+font-size: 18px;
+letter-spacing: 6px;
+font-weight: 600;
+color: var(--text-light);
+}
+.hint-text {
+position: absolute;
+bottom: -85px;
+width: 100%;
+text-align: center;
+font-size: 11px;
+color: var(--text-muted);
+letter-spacing: 2px;
+animation: pulse 2s infinite;
+}
+@keyframes pulse {
+0%,
+100% {
+opacity: .4;
+}
+50% {
+opacity: 1;
+}
+}
+#main-invitation {
+min-height: 100vh;
+background: url('assets/imagen.jpg') no-repeat center center;
+background-size: cover;
+background-attachment: fixed;
+position: relative;
+display: flex;
+justify-content: center;
+padding: 60px 20px;
+opacity: 0;
+transform: translateY(20px);
+transition: all 1.4s ease;
+}
+body.content-active #main-invitation {
+opacity: 1;
+transform: translateY(0);
+}
+.invitation-frame {
+max-width: 500px;
+width: 100%;
+border: 1px solid var(--gold-secondary);
+padding: 40px 30px;
+text-align: center;
+position: relative;
+background: rgba(252, 250, 248, 0.85);
+box-shadow: 0 15px 35px rgba(74, 65, 56, 0.08);
+backdrop-filter: blur(8px);
+border-radius: 6px;
+z-index: 2;
+}
+.lotus-header img {
+width: 45px;
+height: 45px;
+object-fit: contain;
+margin-bottom: 20px;
+}
+.section-tag {
+font-family: 'Cinzel', serif;
+font-size: 11px;
+letter-spacing: 5px;
+color: var(--text-muted);
+text-transform: uppercase;
+margin-bottom: 10px;
+font-weight: 600;
+}
+.main-title {
+font-family: 'Pinyon Script', cursive;
+font-size: 65px;
+color: var(--text-light);
+margin-bottom: 15px;
+line-height: 1.1;
+}
+.phrase {
+font-family: 'Cormorant Garamond', serif;
+font-style: italic;
+font-size: 18px;
+color: var(--text-light);
+line-height: 1.6;
+margin-bottom: 35px;
+padding: 0 15px;
+}
+.divider {
+width: 60px;
+height: 1px;
+background: linear-gradient(to right, transparent, var(--gold-primary), transparent);
+margin: 25px auto;
+}
+.info-block {
+margin-bottom: 30px;
+}
+.info-label {
+font-family: 'Cinzel', serif;
+font-size: 11px;
+letter-spacing: 3px;
+color: var(--text-muted);
+text-transform: uppercase;
+margin-bottom: 8px;
+font-weight: 600;
+}
+.name-main {
+font-family: 'Cinzel', serif;
+font-size: 17px;
+font-weight: 600;
+color: var(--text-light);
+margin-bottom: 4px;
+}
+.info-value-main {
+font-family: 'Cinzel', serif;
+font-size: 20px;
+font-weight: 600;
+color: var(--text-light);
+letter-spacing: 2px;
+}
+.info-value-sub {
+font-size: 13px;
+margin-top: 5px;
+line-height: 1.4;
+}
+.countdown-grid {
+display: flex;
+justify-content: center;
+gap: 15px;
+margin: 25px auto 10px;
+max-width: 350px;
+}
+.countdown-item {
+flex: 1;
+background: rgba(255, 255, 255, 0.7);
+border: 1px solid var(--gold-secondary);
+padding: 10px 5px;
+border-radius: 4px;
+}
+.countdown-number {
+font-family: 'Cinzel', serif;
+font-size: 20px;
+font-weight: 700;
+}
+.countdown-label {
+font-size: 9px;
+text-transform: uppercase;
+color: var(--text-muted);
+}
+.event-image {
+width: 100%;
+border-radius: 4px;
+margin-top: 15px;
+border: 1px solid var(--gold-secondary);
+}
+.map-card {
+margin-top: 15px;
+border: 1px solid var(--gold-secondary);
+background: rgba(255, 255, 255, 0.8);
+padding: 20px 15px;
+border-radius: 4px;
+}
+.map-embed {
+width: 100%;
+height: 220px;
+border: 0;
+border-radius: 4px;
+margin-top: 15px;
+}
+.btn-link,
+.btn-whatsapp {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+margin-top: 15px;
+padding: 13px 28px;
+border-radius: 4px;
+text-decoration: none;
+font-family: 'Cinzel', serif;
+letter-spacing: 2px;
+transition: .3s ease;
+cursor: pointer;
+}
+.btn-link {
+border: 1px solid var(--gold-primary);
+color: var(--text-light);
+}
+.btn-link:hover {
+background: var(--gold-primary);
+color: #fff;
+}
+.btn-whatsapp {
+background: var(--text-light);
+color: #fff;
+border: 1px solid var(--text-light);
+}
+.btn-whatsapp:hover {
+background: #fff;
+color: var(--text-light);
+}
+.confirm-input,
+.confirm-select {
+width: 100%;
+padding: 14px 16px;
+margin-top: 12px;
+border: 1px solid var(--gold-secondary);
+border-radius: 4px;
+background: rgba(255, 255, 255, .85);
+font-size: 14px;
+}
+.gallery-wrapper {
+width: 100%;
+margin-top: 20px;
+}
+.gallery-carousel {
+overflow: hidden;
+width: 100%;
+cursor: grab;
+}
+.gallery-track {
+display: flex;
+gap: 14px;
+transition: transform .3s ease;
+}
+.gallery-slide {
+min-width: 85%;
+flex-shrink: 0;
+}
+.gallery-slide img {
+width: 100%;
+height: 360px;
+object-fit: cover;
+border-radius: 14px;
+border: 1px solid var(--gold-secondary);
+cursor: pointer;
+transition: transform .3s ease;
+}
+.gallery-slide img:hover {
+transform: scale(1.02);
+}
+.image-viewer {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, .92);
+z-index: 99999;
+display: flex;
+justify-content: center;
+align-items: center;
+opacity: 0;
+pointer-events: none;
+transition: opacity .3s ease;
+}
+.image-viewer.active {
+opacity: 1;
+pointer-events: auto;
+}
+.image-viewer img {
+max-width: 92%;
+max-height: 88%;
+border-radius: 12px;
+}
+.viewer-close {
+position: absolute;
+top: 20px;
+right: 25px;
+color: #fff;
+font-size: 42px;
+cursor: pointer;
+}
+.music-btn {
+position: fixed;
+right: 20px;
+bottom: 20px;
+width: 58px;
+height: 58px;
+border-radius: 50%;
+border: none;
+background: rgba(255, 255, 255, .2);
+backdrop-filter: blur(10px);
+color: #fff;
+font-size: 22px;
+cursor: pointer;
+z-index: 9999;
+transition: .3s ease;
+}
+.music-btn.hidden {
+opacity: 0;
+pointer-events: none;
+}
+.flower-petal {
+position: absolute;
+background-color: var(--gold-primary);
+border-radius: 150% 0 150% 0;
+pointer-events: none;
+animation: float-up infinite ease-in;
+opacity: 0;
+}
+@keyframes float-up {
+0% {
+transform: translateY(0) rotate(0deg);
+opacity: 0;
+}
+15% {
+opacity: .6;
+}
+100% {
+transform: translateY(-100vh) rotate(360deg);
+opacity: 0;
+}
+}
+@media(max-width:400px) {
+.envelope {
+width: 320px;
+height: 220px;
+}
+.front-flap {
+border-left-width: 160px;
+border-right-width: 160px;
+border-top-width: 130px;
+}
+.envelope::before {
+border-right-width: 160px;
+border-top-width: 110px;
+border-bottom-width: 110px;
+}
+.envelope::after {
+border-left-width: 160px;
+border-top-width: 110px;
+border-bottom-width: 110px;
+}
+.envelope-letter {
+width: 255px;
+height: 170px;
+}
+.letter-name {
+font-size: 54px;
+}
+.gallery-slide img {
+height: 300px;
+}
+}
+</style>
 </head>
-
 <body>
-
-    <audio id="bg-music" loop>
-        <source src="assets/song.mp3" type="audio/mpeg">
-    </audio>
-
-    <button id="music-toggle" class="music-btn hidden" onclick="toggleMusic()">
-        ⏸
-    </button>
-
-    <div id="envelope-screen">
-
-        <div class="premium-particles"></div>
-
-        <div class="premium-glow"></div>
-
-        <div class="envelope-wrapper" onclick="openEnvelope()">
-
-            <div class="envelope-shadow"></div>
-
-            <div class="envelope-letter">
-
-                <div class="letter-inner">
-
-                    <div class="letter-top-icon">
-                        <img src="assets/icono.png" alt="Icono">
-                    </div>
-
-                    <div class="letter-title">
-                        Mi Bautizo
-                    </div>
-
-                    <div class="letter-name" id="sobre-nombre">
-                        Joshua
-                    </div>
-
-                    <div class="letter-line"></div>
-
-                    <div class="letter-subtitle">
-                        Invitación Especial
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="front-flap"></div>
-
-            <div class="wax-seal">
-                <img src="assets/icono.png" alt="Icono">
-            </div>
-
-            <div class="envelope"></div>
-
-            <div class="envelope-text">
-                Joshua
-            </div>
-
-            <div class="hint-text">
-                Toca el sello para abrir
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- TODO TU CONTENIDO ORIGINAL SIGUE IGUAL -->
-    <!-- SOLO TE DEJO EL CAMBIO DE GALERÍA YA FUNCIONAL -->
-
-    <div class="gallery-wrapper">
-
-        <div class="gallery-carousel">
-
-            <div class="gallery-slide">
-                <img src="assets/foto1.jpg" onclick="openGalleryImage(this.src)">
-            </div>
-
-            <div class="gallery-slide">
-                <img src="assets/foto2.jpg" onclick="openGalleryImage(this.src)">
-            </div>
-
-            <div class="gallery-slide">
-                <img src="assets/foto3.jpg" onclick="openGalleryImage(this.src)">
-            </div>
-
-        </div>
-
-    </div>
-
-    <div id="imageViewer" class="image-viewer" onclick="closeGalleryImage()">
-
-        <span class="viewer-close">×</span>
-
-        <img id="viewerImage" src="">
-
-    </div>
-
-    <script>
-
-        function openEnvelope() {
-
-            document.querySelector('.envelope-wrapper').classList.add('open');
-
-            const music = document.getElementById('bg-music');
-
-            music.play().catch(() => { });
-
-            document.getElementById('music-toggle').classList.remove('hidden');
-
-            setTimeout(() => {
-
-                document.getElementById('envelope-screen').classList.add('fade-out');
-
-                document.body.classList.add('content-active');
-
-                createFlowerPetals();
-
-            }, 1400);
-
-        }
-
-        function toggleMusic() {
-
-            const music = document.getElementById('bg-music');
-            const btn = document.getElementById('music-toggle');
-
-            if (music.paused) {
-
-                music.play();
-                btn.innerHTML = '⏸';
-
-            } else {
-
-                music.pause();
-                btn.innerHTML = '▶';
-
-            }
-
-        }
-
-        function openGalleryImage(src) {
-
-            const viewer = document.getElementById('imageViewer');
-            const image = document.getElementById('viewerImage');
-
-            image.src = src;
-
-            viewer.classList.add('active');
-
-        }
-
-        function closeGalleryImage() {
-
-            document.getElementById('imageViewer').classList.remove('active');
-
-        }
-
-        function createFlowerPetals() {
-
-            const container = document.getElementById('lanterns-container');
-
-            if(!container) return;
-
-            for (let i = 0; i < 25; i++) {
-
-                const petal = document.createElement('div');
-
-                petal.classList.add('flower-petal');
-
-                const width = Math.random() * 8 + 6;
-
-                petal.style.width = `${width}px`;
-                petal.style.height = `${width * 1.3}px`;
-
-                petal.style.left = `${Math.random() * 100}%`;
-
-                petal.style.bottom = `-30px`;
-
-                petal.style.backgroundColor =
-                    ['#e6d3c0', '#e8dcca', '#c5a880'][Math.floor(Math.random() * 3)];
-
-                petal.style.animationDuration =
-                    `${Math.random() * 10 + 7}s`;
-
-                petal.style.animationDelay =
-                    `${Math.random() * 6}s`;
-
-                container.appendChild(petal);
-
-            }
-
-        }
-
-    </script>
-
+<audio id="bg-music" loop>
+<source src="assets/song.mp3" type="audio/mpeg">
+</audio>
+<button id="music-toggle" class="music-btn hidden" onclick="toggleMusic()">
+⏸
+</button>
+<div id="envelope-screen">
+<div class="premium-particles"></div>
+<div class="premium-glow"></div>
+<div class="envelope-wrapper" onclick="openEnvelope()">
+<div class="envelope-shadow"></div>
+<div class="front-flap"></div>
+<div class="envelope-letter">
+<div class="letter-inner">
+<div class="letter-top-icon">
+<img src="assets/icono.png" alt="Icono">
+</div>
+<div class="letter-title">
+Mi Bautizo
+</div>
+<div class="letter-name" id="sobre-nombre">
+Joshua
+</div>
+<div class="letter-line"></div>
+<div class="letter-subtitle">
+Invitación Especial
+</div>
+</div>
+</div>
+<div class="wax-seal">
+<img src="assets/icono.png" alt="Icono">
+</div>
+<div class="envelope"></div>
+<div class="envelope-text">
+Joshua
+</div>
+<div class="hint-text">
+Toca el sello para abrir
+</div>
+</div>
+</div>
+<main id="main-invitation">
+<div id="lanterns-container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:1;"></div>
+<div class="invitation-frame">
+<div class="lotus-header">
+<img src="assets/icono.png" alt="Icono">
+</div>
+<div class="section-tag">Mi Bautizo</div>
+<h1 class="main-title" id="main-nombre">Joshua</h1>
+<p class="phrase">
+"Con inmensa alegría y amor, compartimos el día en que recibo la luz de Dios.
+Nos encantaría que nos acompañes en este momento tan especial."
+</p>
+<div class="divider"></div>
+<div class="info-block">
+<div class="info-label">Mis Padres</div>
+<div class="name-main">Josué González Pérez</div>
+<div class="name-main">Zaira Romero López</div>
+</div>
+<div class="info-block">
+<div class="info-label">Mis Padrinos</div>
+<div class="name-main">Julián Romero López</div>
+<div class="name-main">Irlanda Siliceo Cantero</div>
+</div>
+<div class="divider"></div>
+<div class="section-tag">Cuenta Atrás</div>
+<div class="countdown-grid" id="countdown-timer">
+<div class="countdown-item">
+<span class="countdown-number" id="days">00</span>
+<span class="countdown-label">Días</span>
+</div>
+<div class="countdown-item">
+<span class="countdown-number" id="hours">00</span>
+<span class="countdown-label">Hrs</span>
+</div>
+<div class="countdown-item">
+<span class="countdown-number" id="minutes">00</span>
+<span class="countdown-label">Min</span>
+</div>
+<div class="countdown-item">
+<span class="countdown-number" id="seconds">00</span>
+<span class="countdown-label">Seg</span>
+</div>
+</div>
+<div class="divider"></div>
+<div class="info-block">
+<div class="info-label">Ceremonia Religiosa</div>
+<div class="info-value-main">06.JUN.2026</div>
+<div class="info-value-sub">
+Sábado a las 10:00 a.m.<br>
+Parroquia del Purísimo Corazón de María
+</div>
+<img src="assets/ceremonia.jpg" class="event-image">
+<div class="map-card">
+<iframe class="map-embed" src="https://maps.google.com/maps?q=Parroquia%20del%20Pur%C3%ADsimo%20Coraz%C3%B3n%20de%20Mar%C3%ADa&t=&z=15&ie=UTF8&iwloc=&output=embed">
+</iframe>
+<a href="https://share.google/ADzdVUeRq7zm7zJPe" target="_blank" class="btn-link">
+Ver en Maps
+</a>
+</div>
+</div>
+</div>
+</main>
 </body>
-
 </html>
